@@ -39,14 +39,17 @@ $ composer require jontsa/national-identification-number
 
 ## Usage
 
-Parse and validate Finnish personal identifier:
+Parse and validate Finnish identity number:
 
 ```php
+use Jontsa\NationalIdentificationNumber\Exception\InvalidIdentifierExceptionInterface;
 use Jontsa\NationalIdentificationNumber\Exception\InvalidSyntaxExceptionInterface;
 use Jontsa\NationalIdentificationNumber\Factory;
 
 try {
     $identificationNumber = Factory::FI('150921A123A');
+    // Alternative method
+    // $identificationNumber = Factory::create('FI', '150921A123A');
     echo 'Yay, this is a valid Finnish personal identification number.';
     echo "\n";
     echo 'Gender: ' . $identificationNumber->getGender() . "\n";
@@ -54,4 +57,19 @@ try {
 } catch (InvalidSyntaxExceptionInterface|InvalidIdentifierExceptionInterface $e) {
     echo 'The supplied string was not valid Finnish personal identification number';
 }
+```
+
+Calculate checksum and format Finnish personal identity number:
+
+```php
+
+use Jontsa\NationalIdentificationNumber\IdentificationNumber\FinnishIdentificationNumber;
+
+$identificationNumber = new FinnishIdentificationNumber('19', '-', '79', '01', '31', '082');
+echo 'Correct checksum: ' . $identificationNumber->getCheckSum() . "\n";
+echo 'Formatted: ' . $identificationNumber->format() . "\n";
+
+// output
+// Correct checksum: U
+// Formatted: 310179-082U
 ```

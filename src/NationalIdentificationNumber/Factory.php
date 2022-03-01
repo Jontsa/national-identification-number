@@ -3,11 +3,30 @@ declare(strict_types=1);
 
 namespace Jontsa\NationalIdentificationNumber;
 
+use Jontsa\NationalIdentificationNumber\Exception\UnsupportedCountryException;
 use Jontsa\NationalIdentificationNumber\Factory as CountryFactories;
 use Jontsa\NationalIdentificationNumber\IdentificationNumber;
 
 class Factory
 {
+
+    public static function create(string $country, string $value) : IdentificationNumber\IdentificationNumberInterface
+    {
+        switch($country) {
+            case 'AT':
+                return static::AT($value);
+            case 'EE':
+                return static::EE($value);
+            case 'FI':
+                return static::FI($value);
+            case 'SE':
+                return static::SE($value);
+            case 'UK':
+            case 'GB':
+                return static::UK($value);
+        }
+        throw new UnsupportedCountryException($country);
+    }
 
     public static function AT(string $value) : IdentificationNumber\AustrianIdentificationNumber
     {
