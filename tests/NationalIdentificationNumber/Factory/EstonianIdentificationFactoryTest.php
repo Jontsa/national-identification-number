@@ -45,14 +45,14 @@ class EstonianIdentificationFactoryTest extends TestCase
     }
 
     /**
-     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool>}>
+     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool|\DateTimeImmutable>}>
      */
     public function validIdentifierProvider() : array
     {
         return [
-            ['37107290014', '37107290014', ['BirthDate' => '1971-07-29', 'Gender' => 'M', 'Serial' => '001', 'Checksum' => '4']],
-            ['49002124277', '49002124277', ['BirthDate' => '1990-02-12', 'Gender' => 'F', 'Serial' => '427', 'Checksum' => '7']],
-            ['47502124911', '47502124911', ['BirthDate' => '1975-02-12', 'Gender' => 'F', 'Serial' => '491', 'Checksum' => '1']]
+            ['37107290014', '37107290014', ['BirthDate' => new \DateTimeImmutable('1971-07-29 00:00:00'), 'Gender' => 'M', 'Serial' => '001', 'Checksum' => '4']],
+            ['49002124277', '49002124277', ['BirthDate' => new \DateTimeImmutable('1990-02-12 00:00:00'), 'Gender' => 'F', 'Serial' => '427', 'Checksum' => '7']],
+            ['47502124911', '47502124911', ['BirthDate' => new \DateTimeImmutable('1975-02-12 00:00:00'), 'Gender' => 'F', 'Serial' => '491', 'Checksum' => '1']]
         ];
     }
 

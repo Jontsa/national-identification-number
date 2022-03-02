@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Jontsa\NationalIdentificationNumber\IdentificationNumber;
 
-class FinnishIdentificationNumber implements GenderAwareIdentificationNumberInterface, IdentificationNumberInterface
+class FinnishIdentificationNumber implements BirthDateAwareInterface, GenderAwareInterface, IdentificationNumberInterface
 {
 
     use BirthDateTrait;

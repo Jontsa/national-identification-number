@@ -14,9 +14,10 @@ trait BirthDateTrait
 
     private string $day;
 
-    public function getBirthDate() : string
+    public function getBirthDate() : ?\DateTimeImmutable
     {
-        return $this->century . $this->year . '-' . $this->month . '-' . $this->day;
+        $dateString = $this->century . $this->year . $this->month . $this->day;
+        return \DateTimeImmutable::createFromFormat('YmdHis', $dateString . '000000') ?: null;
     }
 
 }

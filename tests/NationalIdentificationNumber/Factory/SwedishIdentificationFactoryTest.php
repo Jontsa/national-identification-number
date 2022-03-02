@@ -45,15 +45,15 @@ class SwedishIdentificationFactoryTest extends TestCase
     }
 
     /**
-     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool>}>
+     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool|\DateTimeImmutable>}>
      */
     public function validIdentifierProvider() : array
     {
         return [
-            ['19790131-0826', '790131-0826', ['BirthDate' => '1979-01-31', 'Gender' => 'F', 'Serial' => '082', 'Checksum' => '6', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
-            ['200012055919', '001205-5919', ['BirthDate' => '2000-12-05', 'Gender' => 'M', 'Serial' => '591', 'Checksum' => '9', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
-            ['0012055919', '001205-5919', ['BirthDate' => '2000-12-05', 'Gender' => 'M', 'Serial' => '591', 'Checksum' => '9', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
-            ['970814+4465', '970814+4465', ['BirthDate' => '1897-08-14', 'Gender' => 'F', 'Serial' => '446', 'Checksum' => '5', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
+            ['19790131-0826', '790131-0826', ['BirthDate' => new \DateTimeImmutable('1979-01-31 00:00:00'), 'Gender' => 'F', 'Serial' => '082', 'Checksum' => '6', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
+            ['200012055919', '001205-5919', ['BirthDate' => new \DateTimeImmutable('2000-12-05 00:00:00'), 'Gender' => 'M', 'Serial' => '591', 'Checksum' => '9', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
+            ['0012055919', '001205-5919', ['BirthDate' => new \DateTimeImmutable('2000-12-05 00:00:00'), 'Gender' => 'M', 'Serial' => '591', 'Checksum' => '9', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
+            ['970814+4465', '970814+4465', ['BirthDate' => new \DateTimeImmutable('1897-08-14 00:00:00'), 'Gender' => 'F', 'Serial' => '446', 'Checksum' => '5', 'CompanyGroupNumber' => null, 'Temporary' => false, 'Organization' => false]],
         ];
     }
 

@@ -44,14 +44,14 @@ class AustrianIdentificationFactoryTest extends TestCase
     }
 
     /**
-     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool>}>
+     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool|\DateTimeImmutable>}>
      */
     public function validIdentifierProvider() : array
     {
         return [
-            ['7829280755', '7829280755', ['BirthDate' => '1955-07-28', 'Serial' => '782', 'Checksum' => '9']],
-            ['7829 28 07 55', '7829280755', ['BirthDate' => '1955-07-28', 'Serial' => '782', 'Checksum' => '9']],
-            ['1237010180', '1237010180', ['BirthDate' => '1980-01-01', 'Serial' => '123', 'Checksum' => '7']],
+            ['7829280755', '7829280755', ['BirthDate' => new \DateTimeImmutable('1955-07-28 00:00:00'), 'Serial' => '782', 'Checksum' => '9']],
+            ['7829 28 07 55', '7829280755', ['BirthDate' =>  new \DateTimeImmutable('1955-07-28 00:00:00'), 'Serial' => '782', 'Checksum' => '9']],
+            ['1237010180', '1237010180', ['BirthDate' =>  new \DateTimeImmutable('1980-01-01 00:00:00'), 'Serial' => '123', 'Checksum' => '7']],
         ];
     }
 

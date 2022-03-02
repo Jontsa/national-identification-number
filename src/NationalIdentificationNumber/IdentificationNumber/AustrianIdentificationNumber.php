@@ -7,12 +7,12 @@ use Jontsa\NationalIdentificationNumber\Algorithm\Modulus11;
 
 /**
  * Austrian identity number (Versicherungsnummer) consists of three number serial, a check digit calculated
- * using Modulus11, day, month and two digit year. Century is not available in the identifier but
+ * using Modulus11, day, month and two digit year.
  */
-final class AustrianIdentificationNumber implements IdentificationNumberInterface
+final class AustrianIdentificationNumber implements BirthDateAwareInterface, IdentificationNumberInterface
 {
 
-    use BirthDateTrait;
+    use BirthDateTrait { getBirthDate as private getBirthDateAsDateTime; }
 
     private string $serial;
 
@@ -51,12 +51,12 @@ final class AustrianIdentificationNumber implements IdentificationNumberInterfac
      * @todo I was unable to verify if there is a pattern how the days or months are incremented in such cases
      * so if the date is not valid, we return null here.
      */
-    public function getBirthDate() : ?string
+    public function getBirthDate() : ?\DateTimeImmutable
     {
         if (31 < (int)$this->day || 12 < (int) $this->month) {
             return null;
         }
-        return $this->century . $this->year . '-' . $this->month . '-' . $this->day;
+        return $this->getBirthDateAsDateTime();
     }
 
     public function getSerial() : string

@@ -5,7 +5,7 @@ namespace Jontsa\NationalIdentificationNumber\IdentificationNumber;
 
 use Jontsa\NationalIdentificationNumber\Algorithm\Modulus11;
 
-class EstonianIdentificationNumber implements GenderAwareIdentificationNumberInterface, IdentificationNumberInterface
+class EstonianIdentificationNumber implements BirthDateAwareInterface, GenderAwareInterface, IdentificationNumberInterface
 {
 
     use BirthDateTrait;

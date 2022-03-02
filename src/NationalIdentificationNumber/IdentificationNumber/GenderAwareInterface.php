@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Jontsa\NationalIdentificationNumber\IdentificationNumber;
 
-interface GenderAwareIdentificationNumberInterface
+interface GenderAwareInterface
 {
 
     const GENDER_MALE = 'M',

@@ -5,7 +5,7 @@ namespace Jontsa\NationalIdentificationNumber\IdentificationNumber;
 
 use Jontsa\NationalIdentificationNumber\Algorithm\Luhn10;
 
-final class SwedishIdentificationNumber implements GenderAwareIdentificationNumberInterface, IdentificationNumberInterface
+final class SwedishIdentificationNumber implements BirthDateAwareInterface, GenderAwareInterface, IdentificationNumberInterface
 {
 
     use BirthDateTrait;
@@ -58,13 +58,14 @@ final class SwedishIdentificationNumber implements GenderAwareIdentificationNumb
         return false === $this->isOrganization() && \intval($this->day) > 60;
     }
 
-    public function getBirthDate() : ?string
+    public function getBirthDate() : ?\DateTimeImmutable
     {
         if (true === $this->isOrganization()) {
             return null;
         }
         $day = $this->isTemporary() ? (string) (\intval($this->day) - 60) : $this->day;
-        return $this->century . $this->year . '-' . $this->month . '-' . $day;
+        $dateString = $this->century . $this->year . $this->month . $day;
+        return \DateTimeImmutable::createFromFormat('YmdHis', $dateString . '000000') ?: null;
     }
 
     /**

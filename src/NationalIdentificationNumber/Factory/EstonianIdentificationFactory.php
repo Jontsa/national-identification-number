@@ -28,9 +28,8 @@ class EstonianIdentificationFactory implements IdentificationFactoryInterface
             throw new InvalidChecksumException($identity, $value);
         }
 
-        $birthDate = new \DateTime($identity->getBirthDate() . ' 00:00:00');
         $currentDate = new \DateTime('midnight');
-        if ($birthDate > $currentDate) {
+        if ($identity->getBirthDate() > $currentDate) {
             throw new SuspiciousDateException($identity);
         }
 

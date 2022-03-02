@@ -46,14 +46,14 @@ class FinnishIdentificationFactoryTest extends TestCase
     }
 
     /**
-     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool>}>
+     * @return array<array{0: string, 1: string, 2: array<string, string|null|bool|\DateTimeImmutable>}>
      */
     public function validIdentifierProvider() : array
     {
         return [
-            ['150921-123A', '150921-123A', ['BirthDate' => '1921-09-15', 'Gender' => 'M', 'Serial' => '123', 'Checksum' => 'A']],
-            ['150999+320T', '150999+320T', ['BirthDate' => '1899-09-15', 'Gender' => 'F', 'Serial' => '320', 'Checksum' => 'T']],
-            ['010112A222P', '010112A222P', ['BirthDate' => '2012-01-01', 'Gender' => 'F', 'Serial' => '222', 'Checksum' => 'P']],
+            ['150921-123A', '150921-123A', ['BirthDate' => new \DateTimeImmutable('1921-09-15 00:00:00'), 'Gender' => 'M', 'Serial' => '123', 'Checksum' => 'A']],
+            ['150999+320T', '150999+320T', ['BirthDate' => new \DateTimeImmutable('1899-09-15 00:00:00'), 'Gender' => 'F', 'Serial' => '320', 'Checksum' => 'T']],
+            ['010112A222P', '010112A222P', ['BirthDate' => new \DateTimeImmutable('2012-01-01 00:00:00'), 'Gender' => 'F', 'Serial' => '222', 'Checksum' => 'P']],
         ];
     }
 

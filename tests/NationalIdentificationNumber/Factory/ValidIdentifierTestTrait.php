@@ -25,7 +25,7 @@ trait ValidIdentifierTestTrait
             } else {
                 $getter = 'get' . $propertyName;
             }
-            $this->assertSame($propertyValue, $identity->{$getter}());
+            $this->assertEquals($propertyValue, $identity->{$getter}());
         }
     }
 
