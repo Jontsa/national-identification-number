@@ -5,14 +5,14 @@
 This package can be used to parse, validate and format national personal identification numbers. In some countries
 these might be called social security numbers, national insurance numbers etc.
 
-There are other similar packages available but some do not work with PHP 8 and some only support one country. This
-package was created to better suit our needs. It only supports limited set of countries but new countries can be added
-if needed.
+There are other similar packages available but some are not updated anymore, some do not work with newer PHP versions,
+some only support one country etc. This package was created to better suit our needs. It only supports limited set of
+countries but adding new countries should be easy if syntax is described somewhere.
 
 ## Features
 
 - Parse and validate national identifier string
-- Returns object with all available properties extracted from the identifier
+- Returns object with known properties extracted from the identifier
 - Supported countries
   - Austria
   - Estonia
@@ -39,7 +39,37 @@ $ composer require jontsa/national-identification-number
 
 ## Usage
 
-Parse and validate Finnish identity number:
+Parse and validate identity number:
+
+```php
+use Jontsa\NationalIdentificationNumber\Exception\InvalidIdentifierExceptionInterface;
+use Jontsa\NationalIdentificationNumber\Exception\InvalidSyntaxExceptionInterface;
+use Jontsa\NationalIdentificationNumber\Exception\UnsupportedCountryException;
+use Jontsa\NationalIdentificationNumber\Factory;
+use Jontsa\NationalIdentificationNumber\IdentificationNumber\BirthDateAwareInterface;
+use Jontsa\NationalIdentificationNumber\IdentificationNumber\GenderAwareInterface;
+
+$country = 'FI';
+$string = '150921A123A';
+try {
+    $identificationNumber = Factory::create($country, $string);
+    echo "Yay, this is a valid personal identification number.\n";
+    if ($identificationNumber instanceof BirthDateAwareInterface) {
+        if ($identificationNumber instanceof GenderAwareInterface) {
+            $pronoun = $identificationNumber->getGender() === GenderAwareInterface::GENDER_MALE ? 'He' : 'She';
+        } else {
+            $pronoun = 'Person'
+        }
+        echo $pronoun . " was born on " . $identificationNumber->getBirthDate()->format('Y-m-d') . "\n";
+    }
+} catch (UnsupportedCountryException $e) {
+    echo 'Sorry but ' . $country . ' is not supported. Maybe you can create a ticket or PR in Github?';
+} catch (InvalidSyntaxExceptionInterface|InvalidIdentifierExceptionInterface $e) {
+    echo 'The supplied string was not a valid personal identification number';
+}
+```
+
+Alternative method for parsing identity number for specific country:
 
 ```php
 use Jontsa\NationalIdentificationNumber\Exception\InvalidIdentifierExceptionInterface;
@@ -48,10 +78,7 @@ use Jontsa\NationalIdentificationNumber\Factory;
 
 try {
     $identificationNumber = Factory::FI('150921A123A');
-    // Alternative method
-    // $identificationNumber = Factory::create('FI', '150921A123A');
-    echo 'Yay, this is a valid Finnish personal identification number.';
-    echo "\n";
+    echo "Yay, this is a valid personal identification number.\n";
     echo 'Gender: ' . $identificationNumber->getGender() . "\n";
     echo 'Born: ' . $identificationNumber->getBirthDate() . "\n";
 } catch (InvalidSyntaxExceptionInterface|InvalidIdentifierExceptionInterface $e) {
